@@ -7,6 +7,7 @@ THIS IS A WORK IN PROGRESS, FEATURES MAY BE MISSING.
 
 This Instant Messaging Application is a simplified platform akin to Slack or Telegram, designed for seamless communication between users. With a focus on essential functionalities, users can exchange messages in real-time through a central server, facilitating connections across the Internet. Key features include robust authentication mechanisms for user registration and login/logout procedures. Users can create new chat rooms, either one-on-one or with groups, engage in conversations within these rooms, and access a history of past discussions. Additionally, the application allows for the management of chat rooms, including the ability to delete them as needed. Underpinning these features is a reliable database system ensuring the secure storage of user data, contact information, and message histories.
 
+Backend tools: Node.js and MongoDB
 
 
 **Features**
