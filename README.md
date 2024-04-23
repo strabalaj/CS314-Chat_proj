@@ -15,15 +15,15 @@ Backend tools/notes: Node.js and MongoDB (hosting on render.com, need to create 
 🟢 = Fully working | 🟡 = Partly working/in progress | 🟠 = To be added | 🔴 = Broken
 
 
-Database 🟠
+Database 🟢
 
-Sign Up 🟠
+Sign Up 🟢
 
-Sign In 🟠
+Sign In 🟢
 
 Session management system 🟠
 
-Homepage 🟠
+Homepage 🟢
 
 Edit account 🟠
 
