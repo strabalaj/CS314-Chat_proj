@@ -1,0 +1,66 @@
+const expressAsyncHandler = require("express-async-handler");
+const User = require("../models/userModel");
+const generateToken = require("../config/generateToken");
+
+const newUser = expressAsyncHandler(async (req, res) => {
+    const { name, username, password } = req.body;
+    if(!name || !username || !password) {
+        throw new Error("Please enter all the fields")
+    }
+    const UserExsists = await User.findOne({ username });
+    if(UserExsists) {
+        throw new Error("User already exists");
+    }
+    const user = await User.create ({
+        name, 
+        username, 
+        password,
+    });
+
+    if(user) {
+        res.json({
+            _id: user._id,
+            name: user.name,
+            username: user.username,
+            token:generateToken(user._id), 
+        });
+    } else {
+        throw new Error("Failed to create user")
+    }
+});
+
+const exsistingUser = expressAsyncHandler(async (req, res) => {
+    const { username, password} = req.body;
+
+    //find user
+    const user = await User.findOne({username});
+    if(user && (await user.checkPassword(password))) {
+        res.json({
+           _id: user._id,
+            name: user.name,
+            username: user.username,
+            token:generateToken(user._id),           
+        })
+    } else {
+        throw new Error("Invalid username or Password")
+    }
+
+}); 
+
+// /api/user?search=
+//using queries instead of a post request!
+const everyUser = expressAsyncHandler(async (req, res) => {
+    const key = req.query.search? {
+        
+        $or: [
+            {name : { $regex: req.query.search, $options: "i" } },
+            {username :  {$regex: req.query.search, $options: "i" } },
+        ]
+    }:  {};
+    //console.log(key)
+    //const users = await User.find(key);
+    const users = await User.find(key).find({_id: {$ne: req.user._id}});
+    res.send(users);
+});
+
+module.exports = {newUser, exsistingUser, everyUser}
