@@ -1,14 +1,14 @@
 const expressAsyncHandler = require("express-async-handler");
-const User = require("../models/userModel");
-const generateToken = require("../config/generateToken");
+const User = require("../models/user_model");
+const generate_jwt = require("../config/generate_jwt");
 
-const newUser = expressAsyncHandler(async (req, res) => {
+const new_user = expressAsyncHandler(async (req, res) => {
     const { name, username, password } = req.body;
     if(!name || !username || !password) {
         throw new Error("Please enter all the fields")
     }
-    const UserExsists = await User.findOne({ username });
-    if(UserExsists) {
+    const if_User_already_exsists = await User.findOne({ username });
+    if(if_User_already_exsists) {
         throw new Error("User already exists");
     }
     const user = await User.create ({
@@ -22,14 +22,14 @@ const newUser = expressAsyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             username: user.username,
-            token:generateToken(user._id), 
+            token:generate_jwt(user._id), 
         });
     } else {
         throw new Error("Failed to create user")
     }
 });
 
-const exsistingUser = expressAsyncHandler(async (req, res) => {
+const exsisting_user = expressAsyncHandler(async (req, res) => {
     const { username, password} = req.body;
 
     //find user
@@ -39,7 +39,7 @@ const exsistingUser = expressAsyncHandler(async (req, res) => {
            _id: user._id,
             name: user.name,
             username: user.username,
-            token:generateToken(user._id),           
+            token:generate_jwt(user._id),           
         })
     } else {
         throw new Error("Invalid username or Password")
@@ -49,7 +49,7 @@ const exsistingUser = expressAsyncHandler(async (req, res) => {
 
 // /api/user?search=
 //using queries instead of a post request!
-const everyUser = expressAsyncHandler(async (req, res) => {
+const search_users = expressAsyncHandler(async (req, res) => {
     const key = req.query.search? {
         
         $or: [
@@ -63,4 +63,4 @@ const everyUser = expressAsyncHandler(async (req, res) => {
     res.send(users);
 });
 
-module.exports = {newUser, exsistingUser, everyUser}
+module.exports = {new_user, exsisting_user, search_users}

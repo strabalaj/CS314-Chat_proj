@@ -1,27 +1,31 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const { chats } = require("./data/data");
-const connectDB = require("./config/db");
-const userRoutes = require("./routes/userRoutes")
-const chatRoutes = require("./routes/chatRoutes")
+const mongo_connect = require("./config/database");
+
+const user_routes = require("./routes/user_routes");
+const chat_routes = require("./routes/chat_routes");
+const message_routes = require("./routes/message_routes");
 
 dotenv.config();
 
+// Debugging: Log MONGO_URI to ensure it's being read correctly
+//console.log("MONGO_URI:",process.env.MONGO_URI);
+
 // Connect to MongoDB
-connectDB();
+mongo_connect();
 
 const app = express();
 
+// ensures all files sent from FE are converted to JSON files
 app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send("API is Running Successfully");
 });
 
-app.use('/api/user', userRoutes);
-
-app.use('/api/chat', chatRoutes);
-
+app.use('/api/user', user_routes);
+app.use('/api/chat', chat_routes);
+app.use('/api/messages', message_routes);
 
 const PORT = process.env.PORT || 5002;
 

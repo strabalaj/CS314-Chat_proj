@@ -1,10 +1,10 @@
 
 const mongoose = require('mongoose')
 
-const chatModel = mongoose.Schema(
+const chat_model = mongoose.Schema(
     {
-        chatName:{type:String, trim:true}, 
-        isGroupchat: {type:Boolean,defaut: false}, 
+        chat_name:{type:String, trim:true}, 
+        if_group_chat: {type:Boolean,defaut: false}, 
         users:[{
             //contain ID to particular user 
             type:mongoose.Schema.Types.ObjectId,
@@ -12,18 +12,18 @@ const chatModel = mongoose.Schema(
         },
         ],
 
-        latestMessage: {
+        latest_message: {
             type:mongoose.Schema.Types.ObjectId,
             ref:"Message",
         }, 
-        groupAdmin: {
+        group_admin: {
             type:mongoose.Schema.Types.ObjectId,
             ref:"User",
         },
     }, {timestamps: true, }
 );
 
-const Chat = mongoose.model("Chat", chatModel);
+const Chat = mongoose.model("Chat", chat_model);
 
 module.exports = Chat;
 
