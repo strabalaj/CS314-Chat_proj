@@ -1,0 +1,50 @@
+.chat-page {
+    display: flex;
+    .chat-box {
+        display: flex;
+        flex-direction: column;
+        margin-top: 48px;
+        margin-bottom: 48px;
+        margin-left: 50px;
+    }
+    .contact-box {
+        margin-left: 100px;
+    }
+    .search-icon {
+        margin-bottom: 600px;
+    }
+    .search-bar {
+        position: relative;
+        width: 100%;
+        height: 40px;
+        margin-bottom: 600px;
+        margin-right: 10px;
+        background-color: #FEFED0;
+        border: 2px solid black;
+        border-radius: 5px;
+
+    }
+    .add-chat-button {
+        width: 10%;
+        height: 40px;
+        margin-bottom: 600px;
+        background-color: #FEFED0;
+        color: black;
+        border: 2px solid black;
+        border-radius: 5px;
+        &:hover {
+            background-color: #F4C430;
+        }
+    }
+    span.MuiButton-icon.MuiButton-startIcon.MuiButton-iconSizeMedium.css-1d6wzja-MuiButton-startIcon {
+        margin: 0px;
+    }
+    .header {
+        font-size: 20px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+    .bee {
+        width: 50%;
+        margin-top: 200px;
+    }
+}
