@@ -44,13 +44,13 @@ const send_message = expressAsyncHandler(async (req, res) => {
 
 const message_history = expressAsyncHandler(async (req, res) => {
     try {
-        const messages = await Message.find({ chat: req.params.chatID })
+        const history = await Message.find({ chat: req.params.chatID })
             .populate("sender", "name username")
             .populate("chat");
-        res.json(messages);
+        res.json(history);
     } catch (error) {
         console.error("Error fetching message history:", error);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ history: "Internal Server Error" });
     }
 });
 
