@@ -34,5 +34,5 @@ app.use('/api/messages', message_routes);
 const PORT = process.env.PORT || 5002;
 
 app.listen(PORT, () => {
-    console.log(`Server started on PORT ${PORT}`);
+    console.log(`Your excellency, the server started on PORT ${PORT}`);
 });

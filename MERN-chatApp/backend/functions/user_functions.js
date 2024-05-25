@@ -2,6 +2,7 @@ const expressAsyncHandler = require("express-async-handler");
 const User = require("../models/user_model");
 const generate_jwt = require("../config/generate_jwt");
 
+//register new user in app
 const new_user = expressAsyncHandler(async (req, res) => {
     const { name, username, password } = req.body;
     if(!name || !username || !password) {
@@ -29,6 +30,7 @@ const new_user = expressAsyncHandler(async (req, res) => {
     }
 });
 
+//login to Buzz app
 const exsisting_user = expressAsyncHandler(async (req, res) => {
     const { username, password} = req.body;
 

@@ -3,7 +3,7 @@ const Message = require("../models/message_model");
 const User = require("../models/user_model");
 const Chat = require("../models/chat_model");
 
-
+//send single or group chat message 
 const send_message = expressAsyncHandler(async (req, res) => {
     try {
         const { message_content, chatID } = req.body;
@@ -42,6 +42,7 @@ const send_message = expressAsyncHandler(async (req, res) => {
     }
 });
 
+//to get messge histroy
 const message_history = expressAsyncHandler(async (req, res) => {
     try {
         const history = await Message.find({ chat: req.params.chatID })
