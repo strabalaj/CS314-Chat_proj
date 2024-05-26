@@ -54,5 +54,4 @@ const message_history = expressAsyncHandler(async (req, res) => {
     }
 });
 
-
 module.exports = {send_message, message_history};

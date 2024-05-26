@@ -107,7 +107,6 @@ const enlarge_group_chat = expressAsyncHandler(async (req, res) => {
     }
 });
 
-
 /* takes in a name to remove from a group (only group admin can do this) */
 const remove_from_group_chat = expressAsyncHandler( async (req, res) => {
     const {chatID, userID } = req.body;
