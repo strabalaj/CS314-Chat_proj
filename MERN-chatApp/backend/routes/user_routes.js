@@ -11,6 +11,6 @@ router.route("/register").post(new_user)
 router.post('/login', exsisting_user)
 
 //API to user searching API
-router.route('/search').get(protect, search_users)
+router.route('/').get(protect, search_users)
 
 module.exports = router;

@@ -50,17 +50,25 @@ const exsisting_user = expressAsyncHandler(async (req, res) => {
 // /api/user?search=
 //using queries instead of a post request!
 const search_users = expressAsyncHandler(async (req, res) => {
-    const key = req.query.search? {
-        
-        $or: [
-            {name : { $regex: req.query.search, $options: "i" } },
-            {username :  {$regex: req.query.search, $options: "i" } },
-        ]
-    }:  {};
-    //console.log(key)
-    //const users = await User.find(key);
-    const users = await User.find(key).find({_id: {$ne: req.user._id}});
-    res.send(users);
+    try {
+        const searchTerm = req.query.search;
+
+        if (!searchTerm) {
+            return res.status(400).json({ message: "Search term is required." });
+        }
+
+        // Search users by username
+        const users = await User.find({ username: searchTerm });
+
+        if (users.length === 0) {
+            return res.status(404).json({ message: "No users found with the provided username." });
+        }
+
+        res.status(200).json(users);
+    } catch (error) {
+        console.error("Error searching for users:", error);
+        res.status(500).json({ message: "Internal server error." });
+    }
 });
 
 module.exports = {new_user, exsisting_user, search_users}
