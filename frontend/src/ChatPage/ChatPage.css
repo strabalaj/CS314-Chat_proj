@@ -46,13 +46,23 @@
         width: 100%;
         margin-right: 50px;
     }
-    .send-chat {
-        margin-top: 500px;
-        width: 200px;
-        background-color: #FEFED0;
-        color: black;
-        border: 2px solid black;
-        border-radius: 5px;
+    .text-container {
+        display: flex;
+        .send-chat {
+            width: 500px;
+            background-color: #FEFED0;
+            color: black;
+            border: 2px solid black;
+            border-radius: 5px;
+        }
+        .sent-chat {
+            flex: 1 0;
+            margin-left: 5px;
+            background-color: #FEFED0;
+            color: black;
+            border: 2px solid black;
+            border-radius: 5px;
+        }
     }
     span.MuiButton-icon.MuiButton-startIcon.MuiButton-iconSizeMedium.css-1d6wzja-MuiButton-startIcon {
         margin: 0px;

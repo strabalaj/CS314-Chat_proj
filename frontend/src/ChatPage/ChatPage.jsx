@@ -10,6 +10,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import AddContact from "./AddContact/AddContact";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { map, concat } from 'lodash';
+import SendIcon from '@mui/icons-material/Send';
 
 export default function ChatPage () {
     const [searchKey, setSearchKey] = useState("");
@@ -105,8 +106,10 @@ export default function ChatPage () {
                         )
                     })}
                 </div>
-                <TextField  className='send-chat' label='Enter Chat' variant='outlined' onChange={(e) =>  setNewChat(e.target.value)}/>
-                <Button className='new-chat' variant='outlined' label='add' onClick={() => setAllChats(concat(allChats, [newChat]))}></Button>
+                <div className='text-container'>
+                    <TextField  className='send-chat' label='Enter Chat' variant='outlined' onChange={(e) =>  setNewChat(e.target.value)}/>
+                    <Button className='sent-chat' variant='outlined' label='add' startIcon={<SendIcon/>}onClick={() => setAllChats(concat(allChats, [newChat]))}></Button>
+                </div>
             </Box>
         )}
         </div>
