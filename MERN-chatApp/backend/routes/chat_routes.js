@@ -20,7 +20,8 @@ router.route('/remove_from_group').put(protect, remove_from_group_chat);
 router.route('/enlarge_group_chat').put(protect, enlarge_group_chat);
 
 /* add API function four Chat admin to kick a user memeber from group 
-when user violates user terms of agreements */
+when user violates user terms of agreements 
+totaly dude*/
 
 
 module.exports = router;
