@@ -47,6 +47,28 @@ const exsisting_user = expressAsyncHandler(async (req, res) => {
 
 }); 
 
+const delete_user = expressAsyncHandler(async (req, res) => {
+    try {
+        const userID = req.params.userID;
+
+        const user = await User.findById(userID);
+
+        // If user doesn't exist, return 404
+        if (!user) {
+            return res.status(404).json({ message: "User not found." });
+        }
+
+        // Delete the user
+        await user.remove();
+
+        // Return success message
+        res.status(200).json({ message: "User deleted successfully." });
+    } catch (error) {
+        console.error("Error deleting user:", error);
+        res.status(500).json({ message: "Internal server error." });
+    }
+});
+
 // /api/user?search=
 //using queries instead of a post request!
 const search_users = expressAsyncHandler(async (req, res) => {
@@ -71,4 +93,4 @@ const search_users = expressAsyncHandler(async (req, res) => {
     }
 });
 
-module.exports = {new_user, exsisting_user, search_users}
+module.exports = {new_user, exsisting_user, delete_user, search_users}
