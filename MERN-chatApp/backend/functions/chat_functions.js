@@ -3,10 +3,10 @@ const Chat = require("../models/chat_model"); // Import the Chat model
 const User = require("../models/user_model"); // Import the User model
 
 /* creating / fetching one on one chat(s) */
-const access_chat = expressAsyncHandler(async (req, res, next) => {
+const access_chat = expressAsyncHandler(async (req, res) => {
     const { userId } = req.body;
     if (!userId) {
-        throw new Error("UserId parameter not included with request");
+        return res.status(400).json({ message: "UserId parameter not included with request" });
     }
     try {
         let chat = await Chat.findOneAndUpdate(
@@ -36,12 +36,10 @@ const access_chat = expressAsyncHandler(async (req, res, next) => {
 
         res.json(chat); // Return the chat
     } catch (error) {
-        next(error); // Pass the error to the error handling middleware
+        console.error("Error in access_chat:", error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 });
-
-
-
 
 /* check which user is logged in and query for user in database
 of users */
