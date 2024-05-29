@@ -3,11 +3,10 @@ const Chat = require("../models/chat_model"); // Import the Chat model
 const User = require("../models/user_model"); // Import the User model
 
 /* creating / fetching one on one chat(s) */
-const access_chat = expressAsyncHandler(async (req, res) => {
+const access_chat = expressAsyncHandler(async (req, res, next) => {
     const { userId } = req.body;
     if (!userId) {
-        console.log("UserId parameter not included with request");
-        return res.status(400).json({ message: "UserId parameter not included with request" });
+        throw new Error("UserId parameter not included with request");
     }
     try {
         let chat = await Chat.findOneAndUpdate(
@@ -20,15 +19,29 @@ const access_chat = expressAsyncHandler(async (req, res) => {
             },
             {},
             { upsert: true, new: true }
-        ).populate("users", "-password")
-         .populate("latestMessage");
+        );
 
-        res.send(chat);
+        if (!chat) {
+            // If chat doesn't exist, create a new one
+            chat = await Chat.create({
+                if_group_chat: false,
+                users: [req.user._id, userId],
+                latest_message: null
+            });
+        }
+
+        // Populate users and latest_message fields
+        chat = await Chat.populate(chat, { path: "users", select: "-password" });
+        chat = await Chat.populate(chat, { path: "latest_message" });
+
+        res.json(chat); // Return the chat
     } catch (error) {
-
-        res.status(500).json({ message: "Internal Server Error" });
+        next(error); // Pass the error to the error handling middleware
     }
 });
+
+
+
 
 /* check which user is logged in and query for user in database
 of users */
