@@ -37,7 +37,7 @@ const send_message = expressAsyncHandler(async (req, res) => {
         res.json(message);
     } catch (error) {
         // Handle errors
-        console.error("Error sending message:", error);
+        //console.error("Error sending message:", error);
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
@@ -57,7 +57,7 @@ const message_history = expressAsyncHandler(async (req, res) => {
         res.json(messages);
         
     } catch (error) {
-        console.error("Error fetching message history:", error);
+        //console.error("Error fetching message history:", error);
         res.status(500).json({ message: "Internal Server Error" });
     }
 });

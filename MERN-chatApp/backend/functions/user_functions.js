@@ -57,14 +57,11 @@ const delete_user = expressAsyncHandler(async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User not found." });
         }
-
-        // Delete the user
         await user.remove();
 
         // Return success message
         res.status(200).json({ message: "User deleted successfully." });
     } catch (error) {
-        console.error("Error deleting user:", error);
         res.status(500).json({ message: "Internal server error." });
     }
 });
@@ -88,7 +85,6 @@ const search_users = expressAsyncHandler(async (req, res) => {
 
         res.status(200).json(users);
     } catch (error) {
-        console.error("Error searching for users:", error);
         res.status(500).json({ message: "Internal server error." });
     }
 });

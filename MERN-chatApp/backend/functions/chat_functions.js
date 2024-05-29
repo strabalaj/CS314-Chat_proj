@@ -25,7 +25,7 @@ const access_chat = expressAsyncHandler(async (req, res) => {
 
         res.send(chat);
     } catch (error) {
-        console.error("Error accessing chat:", error);
+
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
@@ -76,7 +76,6 @@ const create_group_chat = expressAsyncHandler( async (req,res) => {
         res.json(full_group_chat);
 
     } catch (error) {
-        console.error("Error creating group chat:", error);
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
@@ -102,7 +101,6 @@ const enlarge_group_chat = expressAsyncHandler(async (req, res) => {
         res.json(update_chat);
 
     } catch (error) {
-        console.error("Error adding user to group:", error);
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
