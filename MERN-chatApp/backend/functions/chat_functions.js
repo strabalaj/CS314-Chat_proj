@@ -45,7 +45,7 @@ const access_chat = expressAsyncHandler(async (req, res) => {
 of users */
 const retrieve_user_chats = expressAsyncHandler(async (req, res) => {
     try {
-        const results = await Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
+        let results = await Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
             .populate("users", "-password")
             .populate("group_admin", "-password")
             .populate("latest_message")
@@ -68,7 +68,6 @@ const retrieve_user_chats = expressAsyncHandler(async (req, res) => {
         return res.status(500).send({ message: "Internal Server Error" });
     }
 });
-
 
 
 /*  takes in name of group and array of users to create group */
