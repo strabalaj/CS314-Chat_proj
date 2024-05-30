@@ -96,6 +96,8 @@ describe('create_group_chat function', () => {
         const req = {
             body: {},
         };
+
+        
         
         const res = {
             status: jest.fn(() => res),
