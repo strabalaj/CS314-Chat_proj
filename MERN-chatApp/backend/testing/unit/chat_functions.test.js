@@ -53,6 +53,3 @@ describe("access_chat", () => {
 });
 
 
-describe("retrieve_user_chats", () => {
-    
-});
