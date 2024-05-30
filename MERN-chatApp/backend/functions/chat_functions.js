@@ -45,20 +45,31 @@ const access_chat = expressAsyncHandler(async (req, res) => {
 of users */
 const retrieve_user_chats = expressAsyncHandler(async (req, res) => {
     try {
-        Chat.find({users: {$elemMatch:{$eq: req.user._id}}})
+        const results = await Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
             .populate("users", "-password")
             .populate("group_admin", "-password")
             .populate("latest_message")
-            .sort({updatedAt: -1})
-            .then(async (results) => {
-                results = await User.populate(results, {
-                    path: "latest_message.sender",
-                    select: "name",
-                });
-                res.send(results)
-            })
-    } catch (error) {}
+            .sort({ updatedAt: -1 });
+
+        if (!results || results.length === 0) {
+            return res.status(404).json({ message: "No chats found for the user" });
+        }
+
+        if (results && Array.isArray(results) && results.length > 0) {
+            results = await User.populate(results, {
+                path: "latest_message.sender",
+                select: "name"
+            });
+        }
+
+        return res.json(results);
+    } catch (error) {
+        console.error("Error in retrieve_user_chats:", error);
+        return res.status(500).send({ message: "Internal Server Error" });
+    }
 });
+
+
 
 /*  takes in name of group and array of users to create group */
 const create_group_chat = expressAsyncHandler( async (req,res) => {
