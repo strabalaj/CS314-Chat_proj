@@ -77,7 +77,7 @@ const search_users = expressAsyncHandler(async (req, res) => {
         }
 
         // Search users by username
-        const users = await User.find({ username: searchTerm });
+        const users = await User.find({ username: { $regex: searchTerm, $options: "i"} });
 
         if (users.length === 0) {
             return res.status(404).json({ message: "No users found with the provided username." });

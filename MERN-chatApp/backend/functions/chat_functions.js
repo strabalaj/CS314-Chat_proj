@@ -45,11 +45,15 @@ const access_chat = expressAsyncHandler(async (req, res) => {
 of users */
 const retrieve_user_chats = expressAsyncHandler(async (req, res) => {
     try {
+        console.log("trying")
+        console.log("user id", req.user._id)
         let results = await Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
             .populate("users", "-password")
             .populate("group_admin", "-password")
             .populate("latest_message")
             .sort({ updatedAt: -1 });
+        
+        console.log("results", results)
 
         if (!results || results.length === 0) {
             return res.status(404).json({ message: "No chats found for the user" });

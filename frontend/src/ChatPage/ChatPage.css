@@ -14,22 +14,20 @@
         margin-bottom: 600px;
     }
     .search-bar {
-        position: relative;
-        width: 100%;
+        width: 300px !important;
         height: 40px;
         margin-bottom: 600px;
-        margin-right: 10px;
+        margin-left: 10px;
         background-color: #FEFED0;
         border: 2px solid black;
         border-radius: 5px;
-
+        /*.search-button {
+            width: 100px;
+            height: 2px;
+            margin-bottom: 500px;
+        }*/
     }
-    .search-button {
-        width: 2px;
-        height: 2px;
-        margin-bottom: 600px;
-    }
-    .add-chat-button {
+    /*.add-chat-button {
         width: 10%;
         height: 40px;
         margin-bottom: 600px;
@@ -40,11 +38,14 @@
         &:hover {
             background-color: #F4C430;
         }
-    }
+    }*/
     .show-contact {
         margin-bottom: 500px;
         width: 100%;
         margin-right: 50px;
+    }
+    .chat__users {
+        margin-bottom: 300px;
     }
     .text-container {
         display: flex;

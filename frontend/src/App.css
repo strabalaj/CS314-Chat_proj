@@ -1,4 +1,14 @@
 .App {
+  min-height: 100vh;
+  display: flex;
+  background-image: url(./Background.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+
+
+/*.App {
   text-align: center;
 }
 
@@ -20,4 +30,4 @@
 
 .App-link {
   color: #61dafb;
-}
+}*/

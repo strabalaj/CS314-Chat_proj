@@ -1,10 +1,11 @@
+/*
 import { Box, Button, TextField } from "@mui/material";
 import React, { useState } from "react";
 import './LoginForm.css'
 import { useNavigate } from "react-router-dom";
 import Alert from '@mui/material/Alert';
 
-const LoginForm = ({}) => {
+const LoginForm = ({ socket }) => {
     const [showNewUserContent, setShowNewUserContent] = useState(false);
     const [name, setName] = useState("");
     const [username, setUsername] = useState("");
@@ -24,6 +25,8 @@ const LoginForm = ({}) => {
             }
         }).then((response) => {
             if(response.status == 200) {
+                localStorage.setItem('userName', username);
+                socket.emit('newUser', { username, socketID: socket.id });
                 navigate("/ChatPage")
             }
             if(response.status != 200) {
@@ -44,6 +47,8 @@ const LoginForm = ({}) => {
             }
         }).then((response) => {
             if(response.status == 200) {
+                localStorage.setItem('userName', username);
+                socket.emit('newUser', { username, socketID: socket.id });
                 navigate("/ChatPage")
             }
             if(response.status != 200) {
@@ -94,3 +99,4 @@ const LoginForm = ({}) => {
 }
 
 export default LoginForm;
+*/
