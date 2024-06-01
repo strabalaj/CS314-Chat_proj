@@ -4,42 +4,42 @@ const User = require("../models/user_model"); // Import the User model
 
 /* creating / fetching one on one chat(s) */
 const access_chat = expressAsyncHandler(async (req, res) => {
-    const { userId } = req.body;
-    if (!userId) {
-        return res.status(400).json({ message: "UserId parameter not included with request" });
-    }
     try {
-        let chat = await Chat.findOneAndUpdate(
-            {
-                if_group_chat: false,
-                $or: [
-                    { users: { $all: [req.user._id, userId] } },
-                    { users: { $all: [userId, req.user._id] } }
-                ],
-            },
-            {},
-            { upsert: true, new: true }
-        );
+        const { userId } = req.body;
+
+        if (!userId) {
+            return res.status(400).json({ message: "User ID parameter not included with request" });
+        }
+
+        const currentUser = await User.findById(req.user._id, '-password');
+        const otherUser = await User.findById(userId, '-password');
+
+        if (!currentUser || !otherUser) {
+            return res.status(404).json({ message: "One or both users not found" });
+        }
+
+        let chat = await Chat.findOne({
+            if_group_chat: false,
+            users: { $all: [req.user._id, userId] }
+        });
 
         if (!chat) {
-            // If chat doesn't exist, create a new one
             chat = await Chat.create({
+                chat_name: "Private Chat", 
                 if_group_chat: false,
-                users: [req.user._id, userId],
-                latest_message: null
+                users: [req.user._id, userId]
             });
         }
 
-        // Populate users and latest_message fields
         chat = await Chat.populate(chat, { path: "users", select: "-password" });
-        chat = await Chat.populate(chat, { path: "latest_message" });
 
-        res.json(chat); // Return the chat
+        res.json(chat);
     } catch (error) {
-        console.error("Error in access_chat:", error);
+        console.error("Error in createChat:", error);
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
+
 
 /* check which user is logged in and query for user in database
 of users */
@@ -81,7 +81,7 @@ const create_group_chat = expressAsyncHandler(async (req, res) => {
 
     try {
         const users = JSON.parse(req.body.users);
-        if (users.length < 2) {
+        if (users.length < 3) {
             return res.status(400).json({ message: "More than two users are required to form a group chat!" });
         }
 
