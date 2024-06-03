@@ -13,8 +13,11 @@ import ChatLoading from './ChatLoading';
 import UserItem from './UserItem';
 import { map } from 'lodash';
 import { Spinner } from '@chakra-ui/react';
+import { createPrivateConversation, getSearchResults } from '../Helpers/requests';
+import { getAllConvos } from '../Helpers/requests';
+import './Navigator.css';
 
-const SearchBar = ({setSelectedConversation}) => {
+const Navigator = ({setConversations, io}) => {
     const [search, setSearch] = useState("");
     const [searchResult, setSearchResult] = useState({});
     const [loading, setLoading] = useState(false);
@@ -29,7 +32,7 @@ const SearchBar = ({setSelectedConversation}) => {
         navigate('/');
     };
 
-    const handleSearch = async() => {
+    const handleSearch = () => {
         setLoading(true);
         if(!search) {
             toast({
@@ -40,68 +43,13 @@ const SearchBar = ({setSelectedConversation}) => {
                 position: "top-left",
             });
         }
-        //console.log(state)
-        fetch(`http://localhost:5002/api/user?search=${search}`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${state.token}`,
-                "Content-type" : "application/json"
-            }
-        }).then((response) => {
-            setLoading(false);
-            if(response.status === 200) {
-                console.log("searching", response)
-                response.json().then(json => {
-                    console.log("json", json);
-                    setSearchResult(json);
-                })
-            }
-            if(response.status !== 200) {
-                toast({
-                    title: "Invalid Search",
-                    status: "warning",
-                    duration: 5000,
-                    isClosable: true,
-                    position:"bottom-left",
-                });
-            }
-        })
+        getSearchResults(search, setSearchResult, state.token, setLoading);
     };
 
-    const onSelectGroupChat = (selectedUsername, selectedUserId) => {
-        onClose();
-        createConversation(selectedUserId);
-        setSelectedConversation(selectedUsername);
+    const handleSelectContact = (selectedContactId) => {
+        createPrivateConversation(selectedContactId, state.token, onClose, setConversations, io)
     }
-    const createConversation = (selectedUserId) => {
-        fetch(`http://localhost:5002/api/chat/new_single_chat`, {
-            method: "POST",
-            body: JSON.stringify({
-                userId: selectedUserId
-            }),
-            headers: {
-                "Authorization": `Bearer ${state.token}`,
-                "Content-type" : "application/json"
-            }
-        }).then((response) => {
-            if(response.status === 200) {
-                response.json().then(json => {
-                    console.log("seleceted userId", selectedUserId)
-                    console.log("sent userId", json);
-                })
-            }
-            if(response.status !== 200) {
-                toast({
-                    title: "Error Creating Chat",
-                    status: "warning",
-                    duration: 5000,
-                    isClosable: true,
-                    position:"bottom-left",
-                });
-            }
-        })
-    };
-
+    
     return (
         <>
         <Box
@@ -111,18 +59,24 @@ const SearchBar = ({setSelectedConversation}) => {
             bg='white'
             w='100%'
             p='5px'
-            borderWidth='5px'
+            borderWidth='2px'
+            borderColor='black'
         >
             <Tooltip 
                 label="Find a User to Message"
                 hasArrow
                 placement='bottom-end'
+                bg='#BEE3F8'
+                color='black'
             >
                 <Button 
                     onClick={onOpen}
-                    variant='outline' 
-                    leftIcon={<SearchIcon />} 
-                    //outlineColor='black'
+                    bg='#FEFED0'
+                    _hover={{ bg: '#BEE3F8' }}
+                    leftIcon={<SearchIcon />}
+                    borderWidth='2px'
+                    borderColor='black'
+                    fontFamily='Work sans'
                 >
                     <Text d={{base:'none', md:'flex'}} px='4'>
                         Search User
@@ -130,9 +84,9 @@ const SearchBar = ({setSelectedConversation}) => {
                 </Button>
             </Tooltip>
 
-            <Center>
-                Buzz
-            </Center>
+            <div className='header'>
+                <Text fontSize='4xl' fontFamily='work sans'>Buzz</Text>
+            </div>
             {/*<Text fontSize='2xl'>
                 Buzz
             </Text>*/}
@@ -146,14 +100,23 @@ const SearchBar = ({setSelectedConversation}) => {
                     {/*{<MenuList></MenuList>}*/}
                 </Menu>
                 <Menu>
-                <MenuButton as={Button} rightIcon={<ExpandMoreIcon/>}>
-                    Profile        
-                </MenuButton>
+                <Tooltip 
+                    label="Profile Options"
+                    hasArrow
+                    placement='top'
+                    bg='#BEE3F8'
+                    color='black'
+                >
+                    <MenuButton as={Button} rightIcon={<ExpandMoreIcon/>} bg='#FEFED0' _hover={{ bg: '#BEE3F8' }} borderWidth='2px'
+                        borderColor='black' fontFamily='Work sans'>
+                        Profile        
+                    </MenuButton>
+                </Tooltip>
                 <MenuList>
                     <MyProfileModal>
-                        <MenuItem>My Profile</MenuItem>
+                        <MenuItem fontFamily='work sans' _hover={{ bg: '#BEE3F8' }}>My Profile</MenuItem>
                     </MyProfileModal>
-                    <MenuItem onClick={logoutHandler}>Log Out</MenuItem>
+                    <MenuItem onClick={logoutHandler} fontFamily='work sans' _hover={{ bg: '#BEE3F8' }}>Log Out</MenuItem>
                 </MenuList>
                 </Menu>
             </div>    
@@ -161,20 +124,29 @@ const SearchBar = ({setSelectedConversation}) => {
         <Drawer placement='left' onClose={onClose} isOpen={isOpen}>
             <DrawerOverlay/>
             <DrawerContent>
-                <DrawerHeader borderBottomWidth='1px'>Search Users</DrawerHeader>
-                <DrawerBody>
+                <DrawerHeader borderBottomWidth='1px' fontFamily='work sans' bg='white'>Search Users</DrawerHeader>
+                <DrawerBody fontFamily='work sans' bg='white'>
                     <Box
                         d='flex'
                         pd={2}
                     >
                         <Input
                             placeholder='Search By Username'
+                            fontFamily='work sans'
+                            borderWidth='2px'
+                            borderColor='black'
                             mr={2}
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
                         <Button 
                             onClick={handleSearch}
+                            fontFamily='work sans'
+                            bg='#FEFED0'
+                            _hover={{ bg: '#BEE3F8' }}
+                            borderWidth='2px'
+                            borderColor='black'
+                            marginTop='5px'
                         >
                             Go
                         </Button>
@@ -185,7 +157,7 @@ const SearchBar = ({setSelectedConversation}) => {
                                 <UserItem
                                     key={result.username}
                                     user={result}
-                                    onClick={ () => onSelectGroupChat(result.username, result._id)}
+                                    onClick={ () => handleSelectContact(result._id)}
                                 />
                             )
                         )
@@ -198,4 +170,4 @@ const SearchBar = ({setSelectedConversation}) => {
     );
 };
 
-export default SearchBar;
+export default Navigator;

@@ -45,15 +45,12 @@ const access_chat = expressAsyncHandler(async (req, res) => {
 of users */
 const retrieve_user_chats = expressAsyncHandler(async (req, res) => {
     try {
-        console.log("trying")
-        console.log("user id", req.user._id)
         let results = await Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
             .populate("users", "-password")
             .populate("group_admin", "-password")
             .populate("latest_message")
             .sort({ updatedAt: -1 });
         
-        console.log("results", results)
 
         if (!results || results.length === 0) {
             return res.status(404).json({ message: "No chats found for the user" });
@@ -116,8 +113,6 @@ const create_group_chat = expressAsyncHandler(async (req, res) => {
 /* takes in a name to add to current group user is an admin of */
 const enlarge_group_chat = expressAsyncHandler(async (req, res) => {
     const { chatID, userID } = req.body;
-    //console.log("Received chatID:", chatID);
-    //console.log("Received userID:", userID);
     
     try {
         const update_chat = await Chat.findByIdAndUpdate(
@@ -130,7 +125,6 @@ const enlarge_group_chat = expressAsyncHandler(async (req, res) => {
             return res.status(404).json({ message: "Chat not found" });
         }
         
-        console.log("Updated chat:", update_chat);
         res.json(update_chat);
 
     } catch (error) {

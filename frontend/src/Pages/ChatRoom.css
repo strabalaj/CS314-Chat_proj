@@ -1,0 +1,8 @@
+.chat-room {
+    display: flex;
+    flex-direction: column;
+    .chat-container {
+        display: flex;
+        flex-direction: row;
+    }
+}

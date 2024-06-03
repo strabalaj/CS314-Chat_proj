@@ -9,11 +9,9 @@ const UserItem = ({key, user, onClick}) => {
             <Box
                 onClick={onClick}
                 cursor='pointer'
-                bg='yellow'
-                _hover={{
-                    background: "grey",
-                    color:'white',
-                }}
+                bg='#FEFED0'
+                _hover={{ bg: '#BEE3F8' }}
+                marginTop='10px'
                 w='100%'
                 d='flex'
                 alignItems='center'
@@ -22,11 +20,14 @@ const UserItem = ({key, user, onClick}) => {
                 py={2}
                 mb={2}
                 borderRadius='lg'
+                borderWidth='2px'
+                borderColor='black'
+                fontFamily='work sans'
             >
                 <AccountCircle/>
                 <Box>
-                    <Text>{user.name}</Text>
-                    <Text fontSize='xs'>
+                    <Text fontFamily='work sans'>{user.name}</Text>
+                    <Text fontSize='xs' fontFamily='work sans'>
                         <b>Username : </b>
                         {user.username}
                     </Text>

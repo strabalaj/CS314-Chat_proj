@@ -7,6 +7,7 @@ const cors = require("cors");
 const user_routes = require("./routes/user_routes");
 const chat_routes = require("./routes/chat_routes");
 const message_routes = require("./routes/message_routes");
+const Message = require("./models/message_model");
 
 dotenv.config();
 
@@ -17,7 +18,7 @@ dotenv.config();
 mongo_connect();
 
 const app = express();
-//const http = require('http').Server(app);
+const http = require('http').Server(app);
 
 // Use CORS middleware
 app.use(cors());
@@ -25,29 +26,30 @@ app.use(cors());
 // ensures all files sent from FE are converted to JSON files
 app.use(express.json());
 
-/*let users = [];
-const socketIO = require('socket.io')(http, {
+
+const io = require('socket.io')(http, {
     cors: {
         origin: "http://localhost:3000"
     }
 });
 
 //Add this before the app.get() block
-socketIO.on('connection', (socket) => {
+io.on('connection', (socket) => {
     console.log(`⚡: ${socket.id} user just connected!`);
 
-    socket.on('message', (data) => {
-        socketIO.emit('messageResponse', data);
+    socket.on('chat_message', (data) => {
+        //socketIO.emit('messageResponse', data);
+        io.emit("chat_message", () => {
+            const messageToSave = new Message({ sender: data.sender, message: data.message, chat: data.chat });
+            messageToSave.save();
+        })
+
         console.log(data);
       });
     
-      socket.on('newUser', (data) => {
-        //Adds the new user to the list of users
-        users.push(data);
-        // console.log(users);
-        //Sends the list of users to the client
-        socketIO.emit('newUserResponse', users);
-      });
+    socket.on('create_conversation', (data) => {
+        io.emit("create_conversation", data);
+    })
     
     socket.on('disconnect', () => {
         console.log('🔥: A user disconnected');
@@ -55,7 +57,7 @@ socketIO.on('connection', (socket) => {
 });
 
 
-*/
+
 app.get('/', (req, res) => {
     res.send("API is Running Successfully");
 });
@@ -67,10 +69,10 @@ app.use('/api/messages', message_routes);
 
 const PORT = process.env.PORT || 5002;
 
-/*http.listen(PORT, () => {
+http.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
-});*/
-
-app.listen(PORT, () => {
-     console.log(`Server started on PORT ${PORT}`);
 });
+
+/*app.listen(PORT, () => {
+     console.log(`Server started on PORT ${PORT}`);
+});*/

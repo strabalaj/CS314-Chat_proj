@@ -35,7 +35,7 @@ const Login = () => {
             if(response.status === 200) {
                 localStorage.setItem("userInfo", JSON.stringify(response))
                 response.json().then(json => {
-                    navigate("/ChatRoom", {state: {username, token: json.token}})
+                    navigate("/ChatRoom", {state: {username, token: json.token, id: json._id}})
                 })
                 //navigate("/ChatRoom", {state: {username, token: response.token}})
             }
@@ -53,24 +53,26 @@ const Login = () => {
     return (
         <VStack spacing='5px'>
             <FormControl id='user-name' isRequired>
-                <FormLabel>Username</FormLabel>
+                <FormLabel fontFamily='work sans'>Username</FormLabel>
                 <Input
                     placeholder='Enter Username'
+                    fontFamily='work sans'
                     value={username}
                     onChange={ (e) => setUserName(e.target.value)}
                 />
             </FormControl>
             <FormControl id='pass-word' isRequired>
-                <FormLabel>Password</FormLabel>
+                <FormLabel fontFamily='work sans'>Password</FormLabel>
                 <InputGroup>
                     <Input
                         type={show ? 'text':'password'}
                         placeholder='Enter Password'
+                        fontFamily='work sans'
                         value={password}
                         onChange={ (e) => setPassWord(e.target.value)}
                     />
                     <InputRightElement width='4.5rem'>
-                        <Button h='1.75rem' size='sm' onClick={handleClick} >
+                        <Button fontFamily='work sans' bg='#FEFED0' _hover={{ bg: '#BEE3F8' }} h='1.75rem' size='sm' onClick={handleClick} >
                             {show ? "Hide" : "Show"}
                         </Button>
                     </InputRightElement>
@@ -78,17 +80,24 @@ const Login = () => {
             </FormControl>
 
             <Button 
-                colorScheme='blue'
+                bg='#FEFED0'
+                _hover={{ bg: '#BEE3F8' }}
                 width='100%'
                 style={{marginTop: 15}}
                 onClick={submitHandler}
+                borderWidth='2px'
+                borderColor='black'
+                fontFamily='work sans'
             >
                 Login
             </Button>
             <Button
-                variant='solid'
-                colorScheme='red'
+                bg='#FEFED0'
+                _hover={{ bg: '#BEE3F8' }}
+                fontFamily='work sans'
                 width='100%'
+                borderWidth='2px'
+                borderColor='black'
                 onClick={ () => {
                     setUserName("guest");
                     setPassWord("guest123");

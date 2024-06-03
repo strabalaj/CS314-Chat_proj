@@ -56,29 +56,32 @@ const SignUp = () => {
     return (
         <VStack spacing='5px'>
             <FormControl id='full-name' isRequired>
-                <FormLabel>Name</FormLabel>
+                <FormLabel fontFamily='work sans'>Name</FormLabel>
                 <Input
                     placeholder='Enter Name'
+                    fontFamily='work sans'
                     onChange={ (e) => setName(e.target.value)}
                 />
             </FormControl>
             <FormControl id='user-name' isRequired>
-                <FormLabel>Username</FormLabel>
+                <FormLabel fontFamily='work sans'>Username</FormLabel>
                 <Input
                     placeholder='Enter Username'
+                    fontFamily='work sans'
                     onChange={ (e) => setUserName(e.target.value)}
                 />
             </FormControl>
             <FormControl id='pass-word' isRequired>
-                <FormLabel>Password</FormLabel>
+                <FormLabel fontFamily='work sans'>Password</FormLabel>
                 <InputGroup>
                     <Input
                         type={show ? 'text':'password'}
                         placeholder='Enter Password'
+                        fontFamily='work sans'
                         onChange={ (e) => setPassWord(e.target.value)}
                     />
-                    <InputRightElement width='4.5rem'>
-                        <Button h='1.75rem' size='sm' onClick={handleClick} >
+                    <InputRightElement width='4.5rem' fontFamily='work sans'>
+                        <Button fontFamily='work sans' h='1.75rem' size='sm' onClick={handleClick} >
                             {show ? "Hide" : "Show"}
                         </Button>
                     </InputRightElement>
@@ -86,9 +89,11 @@ const SignUp = () => {
             </FormControl>
 
             <Button 
-                colorScheme='blue'
+                bg='#FEFED0'
                 width='100%'
+                fontFamily='work sans'
                 style={{marginTop: 15}}
+                _hover={{ bg: '#BEE3F8' }}
                 onClick={submitHandler}
             >
                 Sign Up

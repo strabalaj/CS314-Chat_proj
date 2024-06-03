@@ -3,6 +3,7 @@ import React from 'react';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import Login from '../Components/Authentication/Login';
 import SignUp from '../Components/Authentication/SignUp';
+import './HomePage.css';
 
 const HomePage = () => {
     //const navigate = useNavigate();
@@ -21,13 +22,16 @@ const HomePage = () => {
                 d='flex'
                 justifyContent='center'
                 p={3}
-                bg={'orange'}
+                bg={'#FEFED0'}
                 w='100%'
                 m="40px 0 15px 0"
                 borderRadius='lg'
-                borderWidth='1px'
+                borderWidth='2px'
+                borderColor='black'
             >
-                <Text fontSize="4xl" color='black'>Buzz</Text>
+                <div className='title'>
+                    <Text fontFamily='work sans' fontSize="4xl" color='black'>Buzz</Text>
+                </div>
             </Box>
             <Box
                 bg='white'
@@ -35,9 +39,10 @@ const HomePage = () => {
                 p={4}
                 borderRadius='lg'
                 color='black'
-                borderWidth='1px'
+                borderWidth='2px'
+                borderColor='black'
             >
-                <Tabs variant='soft-rounded'>
+                <Tabs variant='soft-rounded' colorScheme='blue' fontFamily='work sans'>
                     <TabList mb='1em'>
                         <Tab width='50%'>Login</Tab>
                         <Tab width='50%'>Sign Up</Tab>

@@ -35,9 +35,11 @@ const MyProfileModal = ({children}) => {
                     <ModalContent>
                         <ModalHeader
                             fontSize='40px'
+                            fontFamily='work sans'
                             d='flex'
                             justifyContent='center'
                         >
+                            Logged in as: {' '} 
                             {state.username}
                         </ModalHeader>
                         <ModalCloseButton />
@@ -47,11 +49,11 @@ const MyProfileModal = ({children}) => {
                             alignItems='center'
                             justifyContent='space-between'
                         >
-                            <AccountCircleIcon/>
+                            {/*<AccountCircleIcon fontSize='large'/>*/}
                         </ModalBody>
 
                         <ModalFooter>
-                            <Button colorScheme='blue' mr={3} onClick={onClose}>
+                            <Button bg='#FEFED0' _hover={{ bg: '#BEE3F8' }} fontFamily='work sans' mr={3} onClick={onClose}>
                                 Close
                             </Button>
                         </ModalFooter>

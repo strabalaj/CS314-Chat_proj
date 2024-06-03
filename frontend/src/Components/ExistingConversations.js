@@ -6,52 +6,32 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import ChatLoading from './ChatLoading';
-import { map } from 'lodash';
+import { map, union } from 'lodash';
 import { Text } from '@chakra-ui/react';
+import { isUndefined } from 'lodash';
+import CreateGroupModal from './CreateGroupModal';
 
-const getSender = (username, users) => {
-    return users[0].username === username.username ? users[1].name : users[0].name;
-};
+const ExistingConversations = ({conversations, setSelectedConversation, currentUserId, io, setConversations, openModal}) => {
+    console.log("CONVERSATIONS", conversations)
+    function getContactName(conversation) {
+        if(!isUndefined(conversation.users)) {
+            if(conversation.users[0]._id === currentUserId) {
+                return conversation.users[1].name;
+            }
+            return conversation.users[0].name;
+        }
 
-const ExistingConversations = ({username, selectedConversation}) => {
-    //const [loggedUser, setLoggedUser] = useState();
-    const [contacts, setContacts] = useState([]);
-    const toast = useToast();
-    const { state } = useLocation(); // state is user logged in
-    const [selectContact, setSelectedContact] = useState({});
-    const fetchChats = async () => {
-        //console.log(state._id);
-        fetch(`http://localhost:5002/api/chat/history`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${state.token}`,
-                "Content-type" : "application/json"
-            }
-        }).then((response) => {
-            if(response.status === 200) {
-                response.json().then(json => {
-                    console.log("fetching existing chats", json);
-                    console.log("fetching existing chat json", json);
-                    setContacts(json);
-                })
-            }
-            if(response.status !== 200) {
-                toast({
-                    title: "Error Fetching Chats",
-                    status: "warning",
-                    duration: 5000,
-                    isClosable: true,
-                    position:"bottom-left",
-                });
-            }
-        })
     }
+
     useEffect( () => {
-        fetchChats();
-    }, [selectedConversation])
+        io.on('create_conversation', (data) => {
+            const prevConversations = conversations;
+            setConversations(union(conversations, [data]));
+            });
+    }, [conversations])
+
     return (
         <Box
-            d={{ base: selectedConversation ? "none" : "flex", md:"flex"}}
             flexDir='column'
             alignItems='center'
             p={3}
@@ -59,7 +39,10 @@ const ExistingConversations = ({username, selectedConversation}) => {
             w={{ base: "100%", md: "31%" }}
             h='100%'
             borderRadius='lg'
-            borderWidth='1px'
+            borderWidth='2px'
+            borderColor='black'
+            marginTop='50px'
+            marginLeft='40px'
         >
             <Box
                 pb={3}
@@ -76,6 +59,12 @@ const ExistingConversations = ({username, selectedConversation}) => {
                     d='flex'
                     fontSize={{ base: "17px", md: "10px", lg: "17px" }}
                     rightIcon={<AddIcon/>}
+                    bg='#FEFED0'
+                    _hover={{ bg: '#BEE3F8' }}
+                    borderWidth='2px'
+                    borderColor='black'
+                    fontFamily='Work sans'
+                    onClick={openModal}
                 >
                     New Group Chat
                 </Button>
@@ -84,36 +73,32 @@ const ExistingConversations = ({username, selectedConversation}) => {
                 d='flex'
                 flexDir='column'
                 p={3}
-                bg="yellow"
+                bg="white"
                 w='100%'
                 h='100%'
                 borderRadius='lg'
                 overflow='hidden'
             >
-                {contacts ? (
+                {conversations ? (
                     <Stack overflowY='scroll'>
-                        (
-                            map(setContacts, (contacts) {
+                        {
+                            map(conversations, (conversation) =>
                                 <Box
-                                    onClick={ () => setSelectedContact(contacts)}
+                                    bg='#FEFED0'
                                     cursor='pointer'
-                                    bg={selectContact === contacts ? 'green' : 'pink'}
-                                    color={selectContact === contacts ? 'white' : 'black'}
                                     px={3}
                                     py={2}
                                     borderRadius='lg'
-                                    key={contacts.username}
+                                    borderWidth='2px'
+                                    borderColor='black'
+                                    key={conversation._id}
                                 >
-                                    {console.log(contacts.username)}
-                                    <Text>
-                                        Contact Name
-                                        {console.log("added contact",contacts.username)}
-                                        {contacts.username}
-                                        {/*{!contacts.if_group_chat? getSender(username, contacts.users):(contacts.chat_name)}*/}
-                                    </Text>
+                                    <Button bg='#FEFED0'  fontFamily='work sans' onClick={ () => setSelectedConversation(conversation)} _hover={{ bg: '#FEFED0' }}>
+                                        {getContactName(conversation)}
+                                    </Button>
                                 </Box>
-                            })
-                        )
+                            )
+                        }
                     </Stack>
                 ) : (
                     <ChatLoading/>
