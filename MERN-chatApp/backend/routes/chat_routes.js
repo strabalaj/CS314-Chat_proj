@@ -1,6 +1,6 @@
 const express = require("express");
 const { protect } = require("../middleware/authorization");
-const { access_chat, retrieve_user_chats, create_group_chat, enlarge_group_chat , remove_from_group_chat} = require("../functions/chat_functions");
+const { access_chat, retrieve_user_chats, create_group_chat, enlarge_group_chat , remove_from_group_chat, delete_chat} = require("../functions/chat_functions");
 
 const router = express.Router();
 
@@ -18,6 +18,9 @@ router.route('/remove_from_group').put(protect, remove_from_group_chat);
 
 /* API to add to group */
 router.route('/enlarge_group_chat').put(protect, enlarge_group_chat);
+
+/* API to delete a chatroom */
+router.route('/delete_chat').delete(protect, delete_chat)
 
 /* add API function four Chat admin to kick a user memeber from group 
 when user violates user terms of agreements 
