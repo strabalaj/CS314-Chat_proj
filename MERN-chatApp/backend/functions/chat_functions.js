@@ -40,7 +40,6 @@ const access_chat = expressAsyncHandler(async (req, res) => {
     }
 });
 
-
 /* check which user is logged in and query for user in database
 of users */
 const retrieve_user_chats = expressAsyncHandler(async (req, res) => {
