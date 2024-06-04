@@ -1,4 +1,4 @@
-**Chat App**
+**BUZZ Chat App**
 
 THIS IS A WORK IN PROGRESS, FEATURES MAY BE MISSING.
 
