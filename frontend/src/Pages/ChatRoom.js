@@ -24,6 +24,7 @@ const ChatRoom = () => {
     const [conversations, setConversations] = useState([])
     const [selectedConversation, setSelectedConversation] = useState({})
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [conversationHistory, setConversationHistory] = useState([])
 
     useEffect( () => {
         getAllConvos(state.token, setConversations);
@@ -35,10 +36,33 @@ const ChatRoom = () => {
         <div className='chat-room' style={{ width: '100%'}}>
             <Navigator setConversations={setConversations} io={io}/>
             <div className='chat-container'>
-                <ExistingConversations conversations={conversations} setSelectedConversation={setSelectedConversation} currentUserId={state.id} io={io} setConversations={setConversations} openModal={() => setIsModalOpen(true)}/>
-                <ChatBox selectedConversation={selectedConversation} currentUserId={state.id} currentUserToken={state.token} io={io}/>
+
+                <ExistingConversations 
+                    conversations={conversations} 
+                    setSelectedConversation={setSelectedConversation} 
+                    currentUserId={state.id} 
+                    io={io} 
+                    setConversations={setConversations} 
+                    openModal={() => setIsModalOpen(true)}
+                    setConversationHistory={setConversationHistory}
+                    currentUserToken={state.token}
+                />
+
+                <ChatBox 
+                    selectedConversation={selectedConversation}   
+                    currentUserId={state.id} 
+                    currentUserToken={state.token} 
+                    io={io}
+                    conversationHistory={conversationHistory}
+                />
+
             </div>
-            <CreateGroupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} setConversations={setConversations} io={io}/>
+            <CreateGroupModal 
+                isOpen={isModalOpen} 
+                onClose={() => setIsModalOpen(false)} 
+                setConversations={setConversations}    
+                io={io}
+            />
         </div>
     );
 };

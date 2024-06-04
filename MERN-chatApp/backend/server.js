@@ -38,11 +38,8 @@ io.on('connection', (socket) => {
     console.log(`⚡: ${socket.id} user just connected!`);
 
     socket.on('chat_message', (data) => {
-        //socketIO.emit('messageResponse', data);
-        io.emit("chat_message", () => {
-            const messageToSave = new Message({ sender: data.sender, message: data.message, chat: data.chat });
-            messageToSave.save();
-        })
+        //io.emit('chat_message', data);
+        io.emit("chat_message", data);
 
         console.log(data);
       });

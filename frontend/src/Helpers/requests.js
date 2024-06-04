@@ -76,11 +76,16 @@ const getMessageHistory = async (chatId, currentUserToken, setMessages) => {
 const createGroupConversation = async (currentUserToken, groupName, selectedContacts, setConversations, io) => {
     try {
         console.log("array of group users", map(selectedContacts, (contact) => contact._id))
+        let selectedUsers = []
+        selectedContacts.forEach(contact => {
+            selectedUsers.push(`\"${contact._id}\"`);
+        });
+
         const response = await fetch(`http://localhost:5002/api/chat/new_group_chat`, {
             method: "POST",
             body: JSON.stringify({
                 name: groupName,
-                users: map(selectedContacts, (contact) =>  "/" + contact._id + "/" )
+                users: "[" + selectedUsers.join(", ") + "]"
             }),
             headers: {
                 "Authorization": `Bearer ${currentUserToken}`,
@@ -94,4 +99,28 @@ const createGroupConversation = async (currentUserToken, groupName, selectedCont
         console.log("ERROR", error);
     }
 }
-export {getAllConvos, getSearchResults, createPrivateConversation, getMessageHistory, createGroupConversation}
+
+const createMessage = async (messageContent, chatId, currentUserToken, io) => {
+    try {
+            console.log("message Content", messageContent)
+            console.log("ChatID", chatId)
+
+        const response = await fetch(`http://localhost:5002/api/messages/send_message`, {
+            method: "POST",
+            body: JSON.stringify({
+                message_content: messageContent,
+                chatID: chatId
+            }),
+            headers: {
+                "Authorization": `Bearer ${currentUserToken}`,
+                "Content-type" : "application/json"
+            }
+        })
+        const result = await response.json()
+        io.emit("chat_message", result);
+    } catch (error) {
+        console.log("ERROR", error);
+    }
+
+}
+export {getAllConvos, getSearchResults, createPrivateConversation, getMessageHistory, createGroupConversation, createMessage}

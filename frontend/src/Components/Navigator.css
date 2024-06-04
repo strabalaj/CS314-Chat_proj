@@ -1,8 +1,13 @@
 .header {
     margin-left: 650px;
+    margin-top: -10px;
 }
 
 .drop-menu {
+    display: inline-flex;
     margin-left: 1250px;
     margin-top: -30px;
+    .bell {
+        margin-top: -75px;
+    }
 }

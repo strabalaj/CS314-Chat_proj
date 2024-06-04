@@ -10,10 +10,15 @@ import { map, union } from 'lodash';
 import { Text } from '@chakra-ui/react';
 import { isUndefined } from 'lodash';
 import CreateGroupModal from './CreateGroupModal';
+import { getMessageHistory } from '../Helpers/requests';
+import './ExistingConversations.css';
 
-const ExistingConversations = ({conversations, setSelectedConversation, currentUserId, io, setConversations, openModal}) => {
+const ExistingConversations = ({conversations, setSelectedConversation, currentUserId, io, setConversations, openModal, setConversationHistory, currentUserToken}) => {
     console.log("CONVERSATIONS", conversations)
     function getContactName(conversation) {
+        if(conversation.if_group_chat === true) {
+            return conversation.chat_name;
+        }
         if(!isUndefined(conversation.users)) {
             if(conversation.users[0]._id === currentUserId) {
                 return conversation.users[1].name;
@@ -21,6 +26,11 @@ const ExistingConversations = ({conversations, setSelectedConversation, currentU
             return conversation.users[0].name;
         }
 
+    }
+
+    function handleSelectConversation(conversation) {
+        setSelectedConversation(conversation);
+        getMessageHistory(conversation._id, currentUserToken, setConversationHistory)
     }
 
     useEffect( () => {
@@ -32,6 +42,7 @@ const ExistingConversations = ({conversations, setSelectedConversation, currentU
 
     return (
         <Box
+            className='my-conversations'
             flexDir='column'
             alignItems='center'
             p={3}
@@ -70,6 +81,7 @@ const ExistingConversations = ({conversations, setSelectedConversation, currentU
                 </Button>
             </Box>
             <Box
+                className='search-results-container'
                 d='flex'
                 flexDir='column'
                 p={3}
@@ -81,6 +93,7 @@ const ExistingConversations = ({conversations, setSelectedConversation, currentU
             >
                 {conversations ? (
                     <Stack overflowY='scroll'>
+                        <div className='search-results'>
                         {
                             map(conversations, (conversation) =>
                                 <Box
@@ -91,14 +104,16 @@ const ExistingConversations = ({conversations, setSelectedConversation, currentU
                                     borderRadius='lg'
                                     borderWidth='2px'
                                     borderColor='black'
+                                    marginBottom='5px'
                                     key={conversation._id}
                                 >
-                                    <Button bg='#FEFED0'  fontFamily='work sans' onClick={ () => setSelectedConversation(conversation)} _hover={{ bg: '#FEFED0' }}>
+                                    <Button bg='#FEFED0'  fontFamily='work sans' onClick={ () => handleSelectConversation(conversation)} _hover={{ bg: '#FEFED0' }}>
                                         {getContactName(conversation)}
                                     </Button>
                                 </Box>
                             )
                         }
+                        </div>
                     </Stack>
                 ) : (
                     <ChatLoading/>

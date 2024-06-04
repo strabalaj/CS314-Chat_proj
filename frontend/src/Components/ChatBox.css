@@ -1,0 +1,50 @@
+.chat-box {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 20px !important;
+    .contact-name {
+        margin-bottom: 35px;
+        font-weight: 600;
+        font-size: 24px;
+    }
+    .message-history {
+        height: 625px;
+        min-height: 625px;
+        overflow: scroll;
+        display: flex;
+        flex-direction: column;
+        max-height: 625px;
+        width: 800px;
+
+        .single-message {
+            &.current-user-message {
+                font-weight: 600;
+                font-size: 14px;
+                color: #cc5500;
+            }
+            &.member-message {
+                font-weight: 600;
+                font-size: 14px;
+            }
+        }
+    }
+    .send-chat {
+        height: 50px;
+        flex: 0;
+        width: 825px;
+        display: flex;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        min-height: 50px;
+        max-height: 50px;
+        .input-box {
+            margin: 0;
+            margin-right: 15px;
+            border: 2px solid black;
+        }
+        .send-button {
+            margin: 0;
+        }
+    }
+}

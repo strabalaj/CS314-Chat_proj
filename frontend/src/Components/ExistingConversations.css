@@ -1,0 +1,18 @@
+.my-conversations {
+    height: 800px;
+    min-height: 800px;
+    max-height: 800px;
+}
+.search-results-container {
+    height: 600px;
+    min-height: 600px;
+    max-height: 600px;
+}
+.search-results { 
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    min-height: 600px;
+    max-height: 600px;
+    overflow: scroll;
+}

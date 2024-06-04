@@ -77,6 +77,7 @@ const Navigator = ({setConversations, io}) => {
                     borderWidth='2px'
                     borderColor='black'
                     fontFamily='Work sans'
+                    marginTop='10px'
                 >
                     <Text d={{base:'none', md:'flex'}} px='4'>
                         Search User
@@ -108,7 +109,7 @@ const Navigator = ({setConversations, io}) => {
                     color='black'
                 >
                     <MenuButton as={Button} rightIcon={<ExpandMoreIcon/>} bg='#FEFED0' _hover={{ bg: '#BEE3F8' }} borderWidth='2px'
-                        borderColor='black' fontFamily='Work sans'>
+                        borderColor='black' fontFamily='Work sans' marginTop='-75px'>
                         Profile        
                     </MenuButton>
                 </Tooltip>
@@ -152,7 +153,7 @@ const Navigator = ({setConversations, io}) => {
                         </Button>
                     </Box>
                     {loading ? <ChatLoading/> : 
-                        (   
+                        (
                             map(searchResult, (result) =>
                                 <UserItem
                                     key={result.username}
