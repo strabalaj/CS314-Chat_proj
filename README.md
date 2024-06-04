@@ -9,6 +9,7 @@ This Instant Messaging Application is a simplified platform akin to Slack or Tel
 
 Backend tools/notes: Node.js and MongoDB (hosting on render.com, need to create account), (framework: Socket.IO)
 
+Frontend tools/notes: React and Chakra 
 
 **Features**
 
