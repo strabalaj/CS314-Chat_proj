@@ -14,39 +14,25 @@ Backend tools/notes: Node.js and MongoDB (hosting on render.com, need to create 
 
 🟢 = Fully working | 🟡 = Partly working/in progress | 🟠 = To be added | 🔴 = Broken
 
+System:
+  Database 🟢
+  Homepage/Landing page 🟢
+  Chatroom Page 🟢
 
-Database 🟢
+Authentication:
+  Sign Up 🟢
+  Sign In 🟢
 
-Sign Up 🟢
+Chatroom:
+  Create a New Private Chatroom (2 Users) 🟢
+  Create a Group Chatroom 🟢
+  Add Friends to Chatroom 🟢
+  Sending Messages in Chatroom 🟢
+  History of conversations in user's chatrooms 🟢
+  Display all chatrooms user is a part of 🟢
+  Delete chatroom 🟢
+  
 
-Sign In 🟢
 
-Session management system 🟠
-
-Homepage 🟢
-
-Edit account 🟠
-
-Delete account 🟠
-
-List of connected users 🟠
-
-Message displayed on joining/leaving chat 🟠
-
-Sending and receiving messages 🟠
-
-Previous chat history displayed on joining 🟠
-
-250 character limit on messages 🟠
-
-Administrator accounts with ban and delete powers 🟠
-
-Different chatrooms 🟠
-
-Changing username updates it in chat logs 🟠
-
-Deleting account updates it to "DELETED" in chat logs 🟠
-
-Session renewal on a regular basis 🟠
 
 
