@@ -163,19 +163,14 @@ const delete_chat = expressAsyncHandler(async (req, res) => {
         if (!chat_to_remove){
             throw new Error("Chatroom not found")
         }
-
-        if (chat.if_group_chat){
-            await Chat.findByIdAndDelete(chatID);
-            return res.json({message : "Group chat was deleted successfully!"})
-        }
-        else {
-            await Chat.findByIdAndDelete(chatID);
-            return res.json({message : "Private chat was deleted successfully"})
-        }
+        await Chat.findByIdAndDelete(chatID);
+        return res.json({message : "Group chat was deleted successfully!"})
+       
     } catch (error) {
         console.error("Error deleting chatroom:", error);
         res.status(500).json({ message: "Internal Server Error" });
     }
 
 });
+
 module.exports = { access_chat, retrieve_user_chats , create_group_chat, enlarge_group_chat, remove_from_group_chat, delete_chat};
