@@ -25,6 +25,7 @@ const ChatRoom = () => {
     const [selectedConversation, setSelectedConversation] = useState({})
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [conversationHistory, setConversationHistory] = useState([])
+    const [messages, setMessages] = useState([]);
 
     useEffect( () => {
         getAllConvos(state.token, setConversations);
@@ -46,6 +47,7 @@ const ChatRoom = () => {
                     openModal={() => setIsModalOpen(true)}
                     setConversationHistory={setConversationHistory}
                     currentUserToken={state.token}
+                    setMessages={setMessages}
                 />
 
                 <ChatBox 
@@ -54,6 +56,8 @@ const ChatRoom = () => {
                     currentUserToken={state.token} 
                     io={io}
                     conversationHistory={conversationHistory}
+                    messages={messages}
+                    setMessages={setMessages}
                 />
 
             </div>

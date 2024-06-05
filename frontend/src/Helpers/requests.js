@@ -123,4 +123,24 @@ const createMessage = async (messageContent, chatId, currentUserToken, io) => {
     }
 
 }
-export {getAllConvos, getSearchResults, createPrivateConversation, getMessageHistory, createGroupConversation, createMessage}
+
+const removeConversation = async (chatId, currentUserToken, setConversations) => {
+    try{
+        console.log("CHATID TO REMOVE", chatId)
+        const response = await fetch(`http://localhost:5002/api/chat/delete_chat`, {
+            method: "DELETE",
+            body: JSON.stringify({
+                chatID: chatId
+            }),
+            headers: {
+                "Authorization": `Bearer ${currentUserToken}`,
+                "Content-type" : "application/json"
+            }
+        })
+        const result = await response.json()
+        getAllConvos(currentUserToken, setConversations);
+    } catch (error) {
+        console.log("ERROR", error);
+    }
+}
+export {getAllConvos, getSearchResults, createPrivateConversation, getMessageHistory, createGroupConversation, createMessage, removeConversation}

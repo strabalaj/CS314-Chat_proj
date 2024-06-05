@@ -10,10 +10,12 @@ import { map, union } from 'lodash';
 import { Text } from '@chakra-ui/react';
 import { isUndefined } from 'lodash';
 import CreateGroupModal from './CreateGroupModal';
-import { getMessageHistory } from '../Helpers/requests';
+import { getAllConvos, getMessageHistory } from '../Helpers/requests';
 import './ExistingConversations.css';
+import ClearIcon from '@mui/icons-material/Clear';
+import { removeConversation } from '../Helpers/requests';
 
-const ExistingConversations = ({conversations, setSelectedConversation, currentUserId, io, setConversations, openModal, setConversationHistory, currentUserToken}) => {
+const ExistingConversations = ({conversations, setSelectedConversation, currentUserId, io, setConversations, openModal, setConversationHistory, currentUserToken, setMessages}) => {
     console.log("CONVERSATIONS", conversations)
     function getContactName(conversation) {
         if(conversation.if_group_chat === true) {
@@ -30,7 +32,13 @@ const ExistingConversations = ({conversations, setSelectedConversation, currentU
 
     function handleSelectConversation(conversation) {
         setSelectedConversation(conversation);
-        getMessageHistory(conversation._id, currentUserToken, setConversationHistory)
+        setMessages([]);
+        getMessageHistory(conversation._id, currentUserToken, setConversationHistory);
+    }
+
+    function handleRemoveConversation(conversation) {
+        removeConversation(conversation._id, currentUserToken, setConversations);
+
     }
 
     useEffect( () => {
@@ -109,6 +117,9 @@ const ExistingConversations = ({conversations, setSelectedConversation, currentU
                                 >
                                     <Button bg='#FEFED0'  fontFamily='work sans' onClick={ () => handleSelectConversation(conversation)} _hover={{ bg: '#FEFED0' }}>
                                         {getContactName(conversation)}
+                                    </Button>
+                                    <Button bg='#FEFED0'  fontFamily='work sans' onClick={ () => handleRemoveConversation(conversation)} _hover={{ bg: '#FEFED0' }}>
+                                        <ClearIcon fontSize="small"/>
                                     </Button>
                                 </Box>
                             )

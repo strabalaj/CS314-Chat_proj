@@ -81,7 +81,7 @@ const SignUp = () => {
                         onChange={ (e) => setPassWord(e.target.value)}
                     />
                     <InputRightElement width='4.5rem' fontFamily='work sans'>
-                        <Button fontFamily='work sans' h='1.75rem' size='sm' onClick={handleClick} >
+                        <Button fontFamily='work sans' bg='#FEFED0' _hover={{ bg: '#BEE3F8' }} h='1.75rem' size='sm' onClick={handleClick} >
                             {show ? "Hide" : "Show"}
                         </Button>
                     </InputRightElement>
@@ -91,6 +91,8 @@ const SignUp = () => {
             <Button 
                 bg='#FEFED0'
                 width='100%'
+                borderWidth='2px'
+                borderColor='black'
                 fontFamily='work sans'
                 style={{marginTop: 15}}
                 _hover={{ bg: '#BEE3F8' }}

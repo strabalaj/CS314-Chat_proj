@@ -10,9 +10,8 @@ import SendIcon from '@mui/icons-material/Send';
 
 
 
-const ChatBox = ({selectedConversation, currentUserId, io, conversationHistory, currentUserToken}) => {
+const ChatBox = ({selectedConversation, currentUserId, io, conversationHistory, currentUserToken, messages, setMessages}) => {
     const [message, setMessage] = useState("");
-    const [messages, setMessages] = useState([]);
     
 
     function getContactName(selectedConversation) {
@@ -80,7 +79,7 @@ const ChatBox = ({selectedConversation, currentUserId, io, conversationHistory, 
                         }
                     </div>
                     <div className='send-chat'>
-                        <Input className='input-box' marginTop='700px' marginLeft='-60px' fontFamily='work sans' onChange={ (event) => setMessage(event.target.value) }/>
+                        <Input className='input-box' marginTop='700px' marginLeft='-60px' value={message} fontFamily='work sans' onChange={ (event) => setMessage(event.target.value) }/>
                         <Button className='send-button' rightIcon={<SendIcon/>} bg='#FEFED0' _hover={{ bg: '#BEE3F8' }} borderWidth='2px' borderColor='black' marginLeft='600px' onClick={ handleOnSubmit }></Button>
                     </div>
                 

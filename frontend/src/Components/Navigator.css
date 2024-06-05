@@ -1,13 +1,12 @@
 .header {
     margin-left: 650px;
-    margin-top: -10px;
+    margin-top: -40px;
 }
 
+.profile-menu {
+    margin-top: -55px;
+}
 .drop-menu {
-    display: inline-flex;
-    margin-left: 1250px;
-    margin-top: -30px;
-    .bell {
-        margin-top: -75px;
-    }
+    height: 20px;
+    margin-bottom: 10px;
 }

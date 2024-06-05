@@ -103,7 +103,8 @@ function CreateGroupModal({isOpen, onClose, setConversations, io}) {
                                     key={'sm'}
                                     borderRadius='full'
                                     variant='solid'
-                                    colorScheme='green'
+                                    bg='#BEE3F8'
+                                    color='black'
                                 >
                                     <TagLabel>{contact.username}</TagLabel>
                                     <TagCloseButton onClick={() => handleRemoveContact(contact)}/>
@@ -139,10 +140,10 @@ function CreateGroupModal({isOpen, onClose, setConversations, io}) {
             </ModalBody>
   
             <ModalFooter>
-              <Button colorScheme='blue' mr={3} onClick={onClose}>
+              <Button bg='#FEFED0' _hover={{ bg: '#BEE3F8' }} mr={3} onClick={onClose}>
                 Close
               </Button>
-              <Button variant='ghost' onClick={handleCreateGroup}>Create Group</Button>
+              <Button variant='ghost' bg='#FEFED0' _hover={{ bg: '#BEE3F8' }} onClick={handleCreateGroup}>Create Group</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>

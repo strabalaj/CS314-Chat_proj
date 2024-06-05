@@ -54,6 +54,8 @@ const Navigator = ({setConversations, io}) => {
         <>
         <Box
             d='flex'
+            flexDirection='row'
+            height='100px'
             justifyContent='space-between'
             alignItems='center'
             bg='white'
@@ -88,19 +90,9 @@ const Navigator = ({setConversations, io}) => {
             <div className='header'>
                 <Text fontSize='4xl' fontFamily='work sans'>Buzz</Text>
             </div>
-            {/*<Text fontSize='2xl'>
-                Buzz
-            </Text>*/}
             <div className='drop-menu'>
                 <Menu>
-                    <MenuButton p='1'>
-                        <div className='bell'>
-                            <NotificationsIcon/>
-                        </div>
-                    </MenuButton>
-                    {/*{<MenuList></MenuList>}*/}
-                </Menu>
-                <Menu>
+                <div className='profile-menu'>
                 <Tooltip 
                     label="Profile Options"
                     hasArrow
@@ -109,10 +101,11 @@ const Navigator = ({setConversations, io}) => {
                     color='black'
                 >
                     <MenuButton as={Button} rightIcon={<ExpandMoreIcon/>} bg='#FEFED0' _hover={{ bg: '#BEE3F8' }} borderWidth='2px'
-                        borderColor='black' fontFamily='Work sans' marginTop='-75px'>
+                        borderColor='black' fontFamily='Work sans' marginLeft='1300' marginBottom='200px'>
                         Profile        
                     </MenuButton>
                 </Tooltip>
+                </div>
                 <MenuList>
                     <MyProfileModal>
                         <MenuItem fontFamily='work sans' _hover={{ bg: '#BEE3F8' }}>My Profile</MenuItem>
