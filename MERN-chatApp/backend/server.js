@@ -56,7 +56,7 @@ io.on('connection', (socket) => {
 
 
 app.get('/', (req, res) => {
-    res.send("API is Running Successfully");
+    res.send("Backend is Running Successfully");
 });
 
 
