@@ -24,7 +24,7 @@ const SignUp = () => {
                 position:"bottom",
             });
         }
-        fetch("https://cs314-chat-proj-backend.onrender.com/api/user/register", {
+        fetch("http://localhost:5002/api/user/register", {
             method: "POST",
             body: JSON.stringify({
                 name,

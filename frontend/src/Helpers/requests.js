@@ -2,7 +2,7 @@ import { map } from "lodash";
 
 const getAllConvos = async (currentUserToken, setConversations) => {
     try {
-        const response = await fetch ("https://cs314-chat-proj-backend.onrender.com/api/chat/history" , {
+        const response = await fetch ("http://localhost:5002/api/chat/history" , {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${currentUserToken}`,
@@ -19,7 +19,7 @@ const getAllConvos = async (currentUserToken, setConversations) => {
 
 const getSearchResults = async (searchKey, setSearchResults, currentUserToken, setLoading) => {
     try {
-        const response = await fetch(`https://cs314-chat-proj-backend.onrender.com/api/user?search=${searchKey}`, {
+        const response = await fetch(`http://localhost:5002/api/user?search=${searchKey}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${currentUserToken}`,
@@ -37,7 +37,7 @@ const getSearchResults = async (searchKey, setSearchResults, currentUserToken, s
 
 const createPrivateConversation = async (selectedContactId, currentUserToken, closePanel, setConversations, io) => {
     try{
-        const response = await fetch(`https://cs314-chat-proj-backend.onrender.com/api/chat/new_single_chat`, {
+        const response = await fetch(`http://localhost:5002/api/chat/new_single_chat`, {
             method: "POST",
             body: JSON.stringify({
                 userId: selectedContactId
@@ -58,7 +58,7 @@ const createPrivateConversation = async (selectedContactId, currentUserToken, cl
 
 const getMessageHistory = async (chatId, currentUserToken, setMessages) => {
     try {
-        const response = await fetch(`https://cs314-chat-proj-backend.onrender.com/api/messages/${chatId}`, {
+        const response = await fetch(`http://localhost:5002/api/messages/${chatId}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${currentUserToken}`,
@@ -81,7 +81,7 @@ const createGroupConversation = async (currentUserToken, groupName, selectedCont
             selectedUsers.push(`\"${contact._id}\"`);
         });
 
-        const response = await fetch(`https://cs314-chat-proj-backend.onrender.com/api/chat/new_group_chat`, {
+        const response = await fetch(`http://localhost:5002/api/chat/new_group_chat`, {
             method: "POST",
             body: JSON.stringify({
                 name: groupName,
@@ -105,7 +105,7 @@ const createMessage = async (messageContent, chatId, currentUserToken, io) => {
             console.log("message Content", messageContent)
             console.log("ChatID", chatId)
 
-        const response = await fetch(`https://cs314-chat-proj-backend.onrender.com/api/messages/send_message`, {
+        const response = await fetch(`http://localhost:5002/api/messages/send_message`, {
             method: "POST",
             body: JSON.stringify({
                 message_content: messageContent,
@@ -127,7 +127,7 @@ const createMessage = async (messageContent, chatId, currentUserToken, io) => {
 const removeConversation = async (chatId, currentUserToken, setConversations) => {
     try{
         console.log("CHATID TO REMOVE", chatId)
-        const response = await fetch(`https://cs314-chat-proj-backend.onrender.com/api/chat/delete_chat`, {
+        const response = await fetch(`http://localhost:5002/api/chat/delete_chat`, {
             method: "DELETE",
             body: JSON.stringify({
                 chatID: chatId
