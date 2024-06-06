@@ -22,7 +22,7 @@ const Login = () => {
                 position:"bottom",
             });
         }
-        fetch("http://localhost:5002/api/user/login", {
+        fetch("https://cs314-chat-proj-backend.onrender.com/api/user/login", {
             method: "POST",
             body: JSON.stringify({
                 username, 
