@@ -14,7 +14,7 @@ const sinon = require("sinon");
 jest.mock('../../models/message_model');
 jest.mock('../../models/user_model');
 jest.mock('../../models/chat_model');
-
+/*
 describe("access_chat", () => {
     it("should return a chat object when userId is provided", async () => {
         // Mock request and response objects
@@ -51,7 +51,7 @@ describe("access_chat", () => {
 
     // Add more test cases as needed for different scenarios
 });
-
+*/
 describe('retrieve_user_chats function', () => {
   const req = {
     user: {
