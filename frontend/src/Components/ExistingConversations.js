@@ -8,7 +8,7 @@ import AddIcon from '@mui/icons-material/Add';
 import ChatLoading from './ChatLoading';
 import { map, union } from 'lodash';
 import { Text } from '@chakra-ui/react';
-import { isUndefined } from 'lodash';
+import { isUndefined, isEmpty } from 'lodash';
 import CreateGroupModal from './CreateGroupModal';
 import { getAllConvos, getMessageHistory } from '../Helpers/requests';
 import './ExistingConversations.css';
@@ -103,7 +103,7 @@ const ExistingConversations = ({conversations, setSelectedConversation, currentU
                     <Stack overflowY='scroll'>
                         <div className='search-results'>
                         {
-                            map(conversations, (conversation) =>
+                            !isEmpty(conversations) && map(conversations, (conversation) =>
                                 <Box
                                     bg='#FEFED0'
                                     cursor='pointer'

@@ -10,7 +10,7 @@ import socketIO from 'socket.io-client';
 import CreateGroupModal from '../Components/CreateGroupModal';
 
 
-const io = socketIO.connect('http://localhost:5002');
+const io = socketIO.connect('https://cs314-chat-proj-backend.onrender.com/');
 
 
 const ChatRoom = () => {

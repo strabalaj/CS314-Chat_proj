@@ -11,7 +11,7 @@ import { useToast } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
 import ChatLoading from './ChatLoading';
 import UserItem from './UserItem';
-import { map } from 'lodash';
+import { map, isEmpty } from 'lodash';
 import { Spinner } from '@chakra-ui/react';
 import { createPrivateConversation, getSearchResults } from '../Helpers/requests';
 import { getAllConvos } from '../Helpers/requests';
@@ -19,7 +19,7 @@ import './Navigator.css';
 
 const Navigator = ({setConversations, io}) => {
     const [search, setSearch] = useState("");
-    const [searchResult, setSearchResult] = useState({});
+    const [searchResult, setSearchResult] = useState([]);
     const [loading, setLoading] = useState(false);
     const [loadingChat, setLoadingChat] = useState(false);
     const navigate = useNavigate();
@@ -42,6 +42,7 @@ const Navigator = ({setConversations, io}) => {
                 isClosable: true,
                 position: "top-left",
             });
+            return;
         }
         getSearchResults(search, setSearchResult, state.token, setLoading);
     };
@@ -144,19 +145,17 @@ const Navigator = ({setConversations, io}) => {
                         >
                             Go
                         </Button>
-                    </Box>
-                    {loading ? <ChatLoading/> : 
-                        (
-                            map(searchResult, (result) =>
+                    </Box> 
+                        {
+                            !isEmpty(searchResult) && map(searchResult, (result) =>
                                 <UserItem
                                     key={result.username}
                                     user={result}
                                     onClick={ () => handleSelectContact(result._id)}
                                 />
                             )
-                        )
-                    }
-                    {loadingChat && <Spinner m1="auto" d="flex"/>}
+                        }
+                
                 </DrawerBody>
             </DrawerContent>
         </Drawer>

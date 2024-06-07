@@ -2,7 +2,7 @@
   "name": "buzz-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5002",
+  "proxy": "https://cs314-chat-proj-backend.onrender.com/",
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.4",
