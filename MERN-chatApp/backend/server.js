@@ -29,7 +29,7 @@ app.use(express.json());
 
 const io = require('socket.io')(http, {
     cors: {
-        origin: "http://localhost:3000"
+        origin: ["http://localhost:3000", "https://cs314-chat-proj.onrender.com/"]
     }
 });
 
