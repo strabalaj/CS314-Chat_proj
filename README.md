@@ -10,13 +10,15 @@ To deploy the application, render.com was utilized, providing a reliable platfor
 
 </div>
 
-# :notebook_with_decorative_cover: GitHub link to project
+# 🐈‍⬛: GitHub link to project
 https://github.com/strabalaj/CS314-Chat_proj 
 
-
-
+</div>
 
 ## :star2: About the Project
+
+</div>
+
 ### :space_invader: Tech Stack
 <details> <summary>Client</summary> <ul>
 <li><a href="">React</a></li>
@@ -36,12 +38,15 @@ https://github.com/strabalaj/CS314-Chat_proj
 <li><a href="https://cs314-chat-proj.onrender.com/">Render </a></li>
 </ul> </details>
 
+</div>
+
 ### :dart: Features
 - Authentication
 - Chatroom Management
 - Messaging
 - User Interaction
 
+</div>
 
 ## :toolbox: Getting Started
 
@@ -68,15 +73,19 @@ Install dependencies from backend
 cd backend npm install
 ```
 
+</div>
 
 ### :test_tube: Running Tests
 <p>Feature testing, each feature of the application was tested to ensure it meets user requirements and delivers a satisfactory user experience. For example, authentication features are tested to validate new user registration, existing user login, and handling incorrect login attempts. Chatroom-related features are also extensively tested, including creating new chatrooms, adding friends to chatrooms, messaging within chatrooms, viewing conversation history, displaying all chatrooms for a user, and deleting chatrooms. These tests ensure that users can effectively interact with the application and perform essential tasks without encountering issues or unexpected behavior.
 </p>
 
-Run Feature Tests
+Run Feature Tests:
 ```bash
 /MERN-chatApp/npm test
 ```
+</div>
+
+
 
 ### :triangular_flag_on_post: Local Deployment
 
@@ -91,7 +100,9 @@ Start up frontend
 
 ### :triangular_flag_on_post: Web Deployment Link
 
-https://cs314-chat-proj.onrender.com/
+frontend render page <https://cs314-chat-proj.onrender.com/>
+
+backend render page <https://cs314-chat-proj-backend.onrender.com/>
 
 
 ## :compass: Roadmap
@@ -103,6 +114,7 @@ https://cs314-chat-proj.onrender.com/
 
 ## :handshake: Contact
 
-Jeffrey Strabala - - strab@pdx.edu
 Helen Khoshnaw - - hhk2@pdx.edu
 
+
+Jeffrey Strabala - - strab@pdx.edu
