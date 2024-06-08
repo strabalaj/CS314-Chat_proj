@@ -4,16 +4,16 @@ This Instant Messaging Application is a simplified platform akin to Slack or Tel
 Technologies Used
 The technologies used in this application consist of:
 
-  MERN Stack: MongoDB, Express, React, and Node.js.
-  Socket.io: For real-time communication.
-  Chakra UI and Material UI: For user interface components.
-  GitHub: For version control and collaboration.
+    -MERN Stack: MongoDB, Express, React, and Node.js.
+    -Socket.io: For real-time communication.
+    -Chakra UI and Material UI: For user interface components.
+    -GitHub: For version control and collaboration.
 
   
 **Application Features**
   Authentication:
-    Login/Logout
-    User Registration
+      Login/Logout
+      User Registration
   
   Chatroom Management:
     Create new chat rooms (private and group)
