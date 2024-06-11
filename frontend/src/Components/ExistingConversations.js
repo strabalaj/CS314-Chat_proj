@@ -1,22 +1,19 @@
 // this shows the empty chat room between me and a new user that i search
 
-import { Box, Button, Stack, useToast } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { Box, Button, Stack } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import ChatLoading from './ChatLoading';
 import { map, union } from 'lodash';
-import { Text } from '@chakra-ui/react';
 import { isUndefined, isEmpty } from 'lodash';
-import CreateGroupModal from './CreateGroupModal';
-import { getAllConvos, getMessageHistory } from '../Helpers/requests';
+import { getMessageHistory } from '../Helpers/requests';
 import './ExistingConversations.css';
 import ClearIcon from '@mui/icons-material/Clear';
 import { removeConversation } from '../Helpers/requests';
 
 const ExistingConversations = ({conversations, setSelectedConversation, currentUserId, io, setConversations, openModal, setConversationHistory, currentUserToken, setMessages}) => {
-    console.log("CONVERSATIONS", conversations)
+
     function getContactName(conversation) {
         if(conversation.if_group_chat === true) {
             return conversation.chat_name;

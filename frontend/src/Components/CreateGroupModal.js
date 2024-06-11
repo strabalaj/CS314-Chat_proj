@@ -22,8 +22,6 @@ import { Spinner } from "@chakra-ui/react";
 import {
     Tag,
     TagLabel,
-    TagLeftIcon,
-    TagRightIcon,
     TagCloseButton,
   } from '@chakra-ui/react';
 import { createGroupConversation } from "../Helpers/requests";

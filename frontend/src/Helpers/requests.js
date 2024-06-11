@@ -10,7 +10,6 @@ const getAllConvos = async (currentUserToken, setConversations) => {
             }
         });
         const result = await response.json()
-        console.log("result", result);
         if(result.message === 'No chats found for the user') {
             setConversations([]);
         }
@@ -32,7 +31,6 @@ const getSearchResults = async (searchKey, setSearchResults, currentUserToken, s
             }
         });
         const result = await response.json()
-        console.log("Search result", result);
         setSearchResults(result);
         setLoading(false);
     } catch (error) {
@@ -71,7 +69,6 @@ const getMessageHistory = async (chatId, currentUserToken, setMessages) => {
             }
         });
         const result = await response.json()
-        console.log("RESULT FROM MESSAGE HISTORY", result);
         setMessages(result);
     } catch (error) {
         console.log("ERROR", error);
@@ -107,9 +104,6 @@ const createGroupConversation = async (currentUserToken, groupName, selectedCont
 
 const createMessage = async (messageContent, chatId, currentUserToken, io) => {
     try {
-            console.log("message Content", messageContent)
-            console.log("ChatID", chatId)
-
         const response = await fetch(`https://cs314-chat-proj-backend.onrender.com/api/messages/send_message`, {
             method: "POST",
             body: JSON.stringify({
@@ -131,7 +125,6 @@ const createMessage = async (messageContent, chatId, currentUserToken, io) => {
 
 const removeConversation = async (chatId, currentUserToken, setConversations) => {
     try{
-        console.log("CHATID TO REMOVE", chatId)
         const response = await fetch(`https://cs314-chat-proj-backend.onrender.com/api/chat/delete_chat`, {
             method: "DELETE",
             body: JSON.stringify({

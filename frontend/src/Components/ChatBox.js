@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button } from '@chakra-ui/react';
 import { isEmpty } from 'lodash';
 import { Input } from '@chakra-ui/react';
-import { createMessage, getMessageHistory } from '../Helpers/requests';
+import { createMessage } from '../Helpers/requests';
 import { map, isUndefined, union } from 'lodash';
 import './ChatBox.css';
 import SendIcon from '@mui/icons-material/Send';

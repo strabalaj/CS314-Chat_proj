@@ -1,27 +1,22 @@
 // search bar closes once user to chat with is selected
 
-import { Box, Button, Center, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Input, Menu, MenuButton, MenuItem, MenuList, Text, Tooltip, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Input, Menu, MenuButton, MenuItem, MenuList, Text, Tooltip, useDisclosure } from '@chakra-ui/react';
 import SearchIcon from '@mui/icons-material/Search';
 import React, { useState } from 'react';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MyProfileModal from './MyProfileModal';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
-import ChatLoading from './ChatLoading';
 import UserItem from './UserItem';
 import { map, isEmpty } from 'lodash';
-import { Spinner } from '@chakra-ui/react';
 import { createPrivateConversation, getSearchResults } from '../Helpers/requests';
-import { getAllConvos } from '../Helpers/requests';
 import './Navigator.css';
 
 const Navigator = ({setConversations, io}) => {
     const [search, setSearch] = useState("");
     const [searchResult, setSearchResult] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [loadingChat, setLoadingChat] = useState(false);
     const navigate = useNavigate();
     const { isOpen, onOpen, onClose} = useDisclosure();
     const toast = useToast();

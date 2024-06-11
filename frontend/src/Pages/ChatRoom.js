@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Box } from '@chakra-ui/react';
 import ChatBox from '../Components/ChatBox';
 import { useLocation } from 'react-router-dom';
 import ExistingConversations from '../Components/ExistingConversations';
@@ -15,10 +14,6 @@ const io = socketIO.connect('https://cs314-chat-proj-backend.onrender.com/');
 
 const ChatRoom = () => {
     const { state } = useLocation();
-    console.log("STATE", state)
-    /*console.log("state in chatRoom", state);
-    const [selectedConversation, setSelectedConversation] = useState({});
-    const [chats, setChats] = useState([]);*/
 
     // always will get existing convo when chat room rerenders
     const [conversations, setConversations] = useState([])
@@ -31,7 +26,6 @@ const ChatRoom = () => {
         getAllConvos(state.token, setConversations);
     }, [state.token])
 
-    console.log("conversations after get all", conversations)
     return (
 
         <div className='chat-room' style={{ width: '100%'}}>
